@@ -14,9 +14,19 @@ jobs:
           cache: 'pip'
     - name: Install dependencies
       run: pip install -r requirements.txt
+    - name: installing pyline
+      run: |
+        pip install pylint
+        pip install pytest
+        pip install pytest-cov
     
-    - name: Running the code
-      run: python hello.py
+    - name: Running pytest code
+      run: pytest -v --junitxml=junit/test-results.xml --cov=com --cov-report=xml --cov-report=html
+      
+    - name: Analysing the code with pylint
+      run: |
+        pylint $(git ls-files '*.py')
+    
     
       
       
