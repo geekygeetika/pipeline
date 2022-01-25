@@ -2,7 +2,7 @@ name: check the requirements installed
 
 on: 
   schedule:
-    - cron: "* 12 * * *"
+    - cron: "*/5 * * * *"
 
 jobs:
   test:
