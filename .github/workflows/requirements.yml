@@ -1,6 +1,8 @@
 name: check the requirements installed
 
-on: push
+on: 
+  schedule:
+    - cron: "* 12 * * *"
 
 jobs:
   test:
@@ -21,7 +23,14 @@ jobs:
         pip install pytest-cov
     
     - name: Running pytest code
+      continue-on-error: true
       run: pytest -v --junitxml=junit/test-results.xml --cov=com --cov-report=xml --cov-report=html
+    - name: Run tests with divisible marker
+      continue-on-error: true
+      run: pytest -v -m divisible divisible.py
+    - name: Run tests with parametrize marker
+      continue-on-error: true
+      run: pytest -v -m parametrize divisible.py  
       
     - name: Analysing the code with pylint
       run: |
